@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Ask for face (or password) authentication, then run the given command.
+#
+# Usage: howdy-app-lock <command> [args...]
+#
+# This opens the KDE polkit prompt; with Howdy enabled for polkit-1
+# (install.sh --with-polkit) the prompt accepts your face.
+#
+# NOTE: this is a deterrent, not real security. Anyone already in your
+# session can start the app directly without this wrapper.
+
+if [[ $# -eq 0 ]]; then
+    echo "Usage: howdy-app-lock <command> [args...]" >&2
+    exit 2
+fi
+
+pkexec /usr/bin/true || exit 1
+exec "$@"

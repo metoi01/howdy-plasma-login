@@ -1,0 +1,9 @@
+; Allow the display manager (xdm_t, e.g. Plasma Login Manager / SDDM)
+; to memory-map V4L camera devices so Howdy can read IR frames
+; on the login screen.
+;
+; Observed denial on Fedora/Bazzite without this rule:
+;   avc: denied { map } for comm="python3" path="/dev/video3"
+;   scontext=system_u:system_r:xdm_t tcontext=system_u:object_r:v4l_device_t
+;   tclass=chr_file
+(allow xdm_t v4l_device_t (chr_file (map)))
